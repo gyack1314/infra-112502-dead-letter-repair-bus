@@ -1,0 +1,7 @@
+{"at":0,"kind":"publish","record":{"key":"A","command":"a","rev":1,"consumers":["ledger"],"needs":["schedule/b@1"]}}
+{"at":0,"kind":"publish","record":{"key":"B","command":"b","rev":1,"consumers":["schedule"],"needs":["ledger/a@1"]}}
+{"at":1,"kind":"publish","record":{"key":"C","command":"c","rev":1,"consumers":["ledger"],"needs":[]}}
+{"at":2,"kind":"repair","record":{"id":"cycle","commands":["a","b","c"]}}
+{"at":3,"kind":"claim","record":{"group":"ledger","command":"c","attempt":"c1"}}
+{"at":4,"kind":"effect","record":{"group":"ledger","command":"c","rev":1,"attempt":"c1","state":"applied","effect_id":"c-ok"}}
+{"at":5,"kind":"inspect","record":{"repair":"cycle"}}

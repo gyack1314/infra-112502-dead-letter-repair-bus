@@ -1,0 +1,14 @@
+{"at":0,"kind":"publish","record":{"key":"stock","command":"take","rev":1,"consumers":["ledger"],"needs":[]}}
+{"at":0,"kind":"publish","record":{"key":"work","command":"finish","rev":1,"consumers":["schedule"],"needs":["ledger/take@1"]}}
+{"at":1,"kind":"claim","record":{"group":"ledger","command":"take","attempt":"a1"}}
+{"at":2,"kind":"dead","record":{"group":"ledger","command":"take","attempt":"a1","dead_reason":"unknown"}}
+{"at":3,"kind":"repair","record":{"id":"r1","commands":["take","finish"]}}
+{"at":4,"kind":"repair","record":{"id":"r2","commands":["take"]}}
+{"at":5,"kind":"amend","record":{"command":"take","rev":2,"changed":"effect"}}
+{"at":6,"kind":"effect","record":{"group":"ledger","command":"take","rev":1,"attempt":"a1","state":"applied","effect_id":"h1"}}
+{"at":7,"kind":"restart","record":{}}
+{"at":8,"kind":"publish","record":{"key":"work","command":"invoice","rev":1,"consumers":["schedule"],"needs":["ledger/take@2"]}}
+{"at":9,"kind":"claim","record":{"group":"schedule","command":"invoice","attempt":"b1"}}
+{"at":10,"kind":"inspect","record":{"repair":"r1"}}
+{"at":11,"kind":"compensated","record":{"group":"ledger","command":"take","effect_id":"h1","compensation_id":"undo"}}
+{"at":12,"kind":"inspect","record":{"group":"schedule","command":"finish"}}
